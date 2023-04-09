@@ -75,7 +75,7 @@ def create_docker_compose():
         "      - traefik.http.routers.web-"+sitename+"-https.tls=true\n",
         "      - traefik.http.routers.web-"+sitename+"-https.tls.certresolver=letsencrypt\n",
         "    networks:\n",
-        "      - traefik-33deg\n",
+        "      - traefik-test\n",
         "  db-"+sitename+":\n",
         "    image: 'mysql:5.7.35'\n",
         "    container_name: mysql_"+sitename+"\n",
@@ -90,11 +90,11 @@ def create_docker_compose():
         "    ports:\n",
         "      - '"+get_free_tcp_port()+":3306'\n",
         "    networks:\n",
-        "      - traefik-33deg\n",
+        "      - traefik-test\n",
         "networks:\n",
-        "  traefik-33deg:\n",
+        "  traefik-test:\n",
         "    external:\n",
-        "      name: traefik-33deg-"+sitename+"\n"
+        "      name: traefik-test-"+sitename+"\n"
     ])
     dockercompose.close()
 
@@ -166,7 +166,7 @@ def create_dockerfile():
     dockerfile.close()
 
 def run_docker():
-    os.system("docker network create traefik-33deg-"+sitename)
+    os.system("docker network create traefik-test-"+sitename)
     print("docker-compose -f " + websitelocation + "/" + sitename + "/docker-compose.yml up -d --build")
     os.system("docker-compose -f " + websitelocation + "/" + sitename + "/docker-compose.yml up -d --build")
 
